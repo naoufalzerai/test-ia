@@ -1,0 +1,30 @@
+#%RAML 1.0
+title: API Livre Exemples
+version: v1
+baseUri: https://api.exemple.com/v1
+
+/books:
+  get:
+    description: Obtenir la liste des livres
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id: string
+                    titre: string
+            example: |
+              {
+                "data": [
+                  {
+                    "id": "SbBGk",
+                    "titre": "Stiff: The Curious Lives of Human Cadavers"
+                  }
+                ]
+              }
