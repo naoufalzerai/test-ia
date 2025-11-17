@@ -1,1 +1,70 @@
+#%RAML 1.0
+title: API Commandes Complexe
+version: 1.0
+baseUri: https://api.exemple.com/v1
+
+/orders:
+  get:
+    description: Récupérer la liste des commandes
+    queryParameters:
+      status:
+        description: "Filtrer les commandes par statut"
+        type: string
+        enum: ["pending", "completed", "cancelled"]
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              orders:
+                type: object
+                properties:
+                  id: integer
+                  date: string
+                  total: number
+                  items:
+                    type: object
+                    properties:
+                      productId: string
+                      quantity: integer
+                example:
+                  id: 123
+                  date: "2023-22-01"
+                  total: "200.50"
+                  items:
+                    productId: "p001"
+                    quantity: 2
+  post:
+    description: Créer une nouvelle commande
+    body:
+      application/json:
+        type: object
+        properties:
+          customerId: string
+          items:
+            type: array
+            items:
+              type: object
+              properties:
+                productId: string
+                quantity: integer
+                price: number
+        example:
+          customerId: "cust123"
+          items:
+            productId: "p001"
+            quantity: 1
+            price: 15.00
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: "Commande créée avec succès"
+      400:
+        body:
+          application/json:
+            example:
+              error: "Requête invalide"
 
